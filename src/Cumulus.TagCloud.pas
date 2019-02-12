@@ -62,7 +62,7 @@ Type
 
     mode: TCloudDisplayMode;
 
-    procedure AddCategories(cats: String);
+    procedure AddCategories(Cats: String);
     procedure Init(O: TXML);
     procedure UpdateTags(Sender: TObject);
     procedure DepthSort();
@@ -118,7 +118,7 @@ begin
   InternalTimer.Enabled := false;
 end;
 
-procedure TTagCloud.AddCategories(cats: String);
+procedure TTagCloud.AddCategories(Cats: String);
 var
   cArray: TFlashArray;
   smallest: Number;
@@ -130,36 +130,36 @@ var
   node: String;
   scalefactor: Number;
 begin
-//  // unescape leave spaces as '+', so we have to filter these out manually
-//  // URLDecode() does it much cleaner than unescape()
-//  cats := URLDecode(cats);
-//  // use the fact that WP outputs line breaks to split the string into bits
-//  cats := StringReplace(cats, '<br />', '‡', [rfReplaceAll]);
-//  cArray := FlashArray(explode(Char('‡'), cats));
-//  // loop though them to find the smallest and largest 'tags'
-//  smallest := 9999;
-//  largest := 0;
-//  pattern := '/\d/g';
-//  for  i := 0 to (cArray.Count-1) do begin
-//    parts := cArray[i].split( '</a>' );
-//    // user regular extpressions to get rid of extra stuff
-//    nr := Number( parts[1].match(pattern).join('') );
-//    largest := Math.max( largest, nr );
-//    smallest := Math.min( smallest, nr );
-//  end;
-//  // how much must we scale the categories to match the tags?
-//  if ( smallest = largest ) then begin
-//    scalefactor := 7 / largest;
-//  end else begin
-//    scalefactor := 14 / largest;
-//  end;
-//  // loop through them again and add to XML
-//  for i := 0 to cArray.Count-1 do begin
-//    parts := cArray[i].split( '</a>' );
-//    nr := Number( parts[1].match(pattern).join('') );
-//    node := '<a style=\''' + ((nr*scalefactor)+8) + '\''' + parts[0].substr( parts[0].indexOf('<a')+2 ) + '</a>';
-//    myXML.appendChild( node );
-//  end;
+  // Unescape leave spaces as '+', so we have to filter these out manually
+  // URLDecode() does it much cleaner than unescape()
+  cats := URLDecode(cats);
+  // use the fact that WP outputs line breaks to split the string into bits
+  cats := StringReplace(cats, '<br />', '‡', [rfReplaceAll]);
+  cArray := TFlashArray(explode(Char('‡'), cats));
+  // loop though them to find the smallest and largest 'tags'
+  smallest := 9999;
+  largest := 0;
+  pattern := '/\d/g';
+  for  i := 0 to (cArray.Count-1) do begin
+    parts := cArray[i].split( '</a>' );
+    // user regular extpressions to get rid of extra stuff
+    nr := Number( parts[1].match(pattern).join('') );
+    largest := Math.max( largest, nr );
+    smallest := Math.min( smallest, nr );
+  end;
+  // how much must we scale the categories to match the tags?
+  if ( smallest = largest ) then begin
+    scalefactor := 7 / largest;
+  end else begin
+    scalefactor := 14 / largest;
+  end;
+  // loop through them again and add to XML
+  for i := 0 to cArray.Count-1 do begin
+    parts := cArray[i].split( '</a>' );
+    nr := Number( parts[1].match(pattern).join('') );
+    node := '<a style=\''' + ((nr*scalefactor)+8) + '\''' + parts[0].substr( parts[0].indexOf('<a')+2 ) + '</a>';
+    myXML.appendChild( node );
+  end;
 end;
 
 procedure TTagCloud.init(o: TXML);
