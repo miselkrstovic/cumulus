@@ -74,6 +74,11 @@ end;
 Having entities defined in XML files should be avoided. Since while they are being loaded, they will cause an exception to be raised of class type `EDOMParseError`, with the message `Reference to undefined entity xyz`.
 
 
+## Contributing
+
+Please take a look at the [contributing](CONTRIBUTING.md) guidelines if you're interested in helping!
+
+
 ## License
 
 Cumulus is licensed under the MIT License - see the [LICENSE-DELPHI](LICENSE-DELPHI.md) file for details.
